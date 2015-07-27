@@ -1,6 +1,6 @@
 #!/bin/bash
 
-s3fs $S3BUCKET:$S3PATH /data/Packages -o iam_role=$AWS_IAM_ROLE
+s3fs $S3BUCKET:$S3PATH /data/Packages -o iam_role=$AWS_IAM_ROLE,allow_other,rw
 
 mkdir /tmp/$TOMCAT
 CATALINA_TMPDIR=/tmp/$TOMCAT 
