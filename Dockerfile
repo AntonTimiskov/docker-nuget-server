@@ -1,7 +1,7 @@
 FROM tomcat:8.0-jre8
 
 # Download jnuget
-ENV JNUGET https://bitbucket.org/aristar/jnuget/downloads/jnuget-server-0.8.2-SNAPSHOT.war
+ENV JNUGET https://bitbucket.org/smpsolutions/jnuget/downloads/jnuget-server-0.8.4-SNAPSHOT.war
 RUN wget $JNUGET
 
 ENV NUGET_HOME /data
