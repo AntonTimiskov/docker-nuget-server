@@ -3,7 +3,7 @@ FROM alanedwardes/docker-s3fs:latest
 ENV TOMCAT tomcat7
 RUN apt-get update && apt-get install -y wget $TOMCAT
 
-ENV JNUGET https://bitbucket.org/aristar/jnuget/downloads/jnuget-0.8.1-SNAPSHOT.war
+ENV JNUGET https://bitbucket.org/aristar/jnuget/downloads/jnuget-server-0.8.2-SNAPSHOT.war
 RUN wget $JNUGET
 
 ENV NUGET_HOME /data
