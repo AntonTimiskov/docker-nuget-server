@@ -1,26 +1,17 @@
-FROM alanedwardes/docker-s3fs:latest
+FROM tomcat:8.0-jre8
 
-ENV TOMCAT tomcat7
-RUN apt-get update && apt-get install -y wget $TOMCAT
-
+# Download jnuget
 ENV JNUGET https://bitbucket.org/aristar/jnuget/downloads/jnuget-server-0.8.2-SNAPSHOT.war
 RUN wget $JNUGET
 
 ENV NUGET_HOME /data
 
-RUN mv /jnuget-*.war /var/lib/$TOMCAT/webapps/jnuget.war && \
-    chown -R $TOMCAT:$TOMCAT /var/lib/$TOMCAT/webapps/jnuget.war
+# Remove default tomcat root application
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
+# Move jnuget to ROOT tomcat application
+RUN mv jnuget-*.war /usr/local/tomcat/webapps/ROOT.war
 
-# Environment variables $S3BUCKET, $S3PATH, $AWS_AIM_ROLE have to be supplied outside the docker container
-# Example to run:
-#    docker run -ti \
-#           -e S3BUCKET=MyBucket \
-#           -e S3PATH=/
-#           -e AWS_IAM_ROLE=MyRole \
-#           -v ~/nuget-config:/data
-#           antontimiskov/docker-nuget-server /bin/bash
+EXPOSE 8080
 
-ADD init.sh /init.sh
-
-CMD /init.sh
+VOLUME ["/data","/usr/local/tomcat/logs","/usr/local/tomcat/conf"]
